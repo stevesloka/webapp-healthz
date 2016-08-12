@@ -21,12 +21,11 @@ func NewAPIChecker(APIUrl, MinVersion string) (*APIChecker, error) {
 
 func (api *APIChecker) CheckVersion() error {
 
-	// buf := new(bytes.Buffer)
-	// if _, err := gorilla.Get(buf, api.APIUrl); err != nil {
-	// 	return err
-	// }
-
 	req, err := http.Get(api.APIUrl)
+	if err != nil {
+		return err
+	}
+
 	decoder := json.NewDecoder(req.Body)
 
 	data := Version{}

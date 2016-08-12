@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"steve.io/abstractions/abstractions-webapp-healthz/healthz"
+	"github.com/stevesloka/webapp-healthz/healthz"
 )
 
 func main() {
