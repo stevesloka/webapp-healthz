@@ -55,6 +55,8 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		Metadata: h.metadata,
 	}
 
+	log.Println("|| request made |||")
+
 	statusCode := http.StatusOK
 
 	errors := make([]Error, 0)
@@ -78,9 +80,13 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
+
+	log.Println("response: ", response)
+
 	data, err := json.MarshalIndent(&response, "", "  ")
 	if err != nil {
 		log.Println(err)
 	}
+
 	w.Write(data)
 }
