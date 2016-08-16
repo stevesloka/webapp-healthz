@@ -12,7 +12,7 @@ type APIChecker struct {
 }
 
 type Version struct {
-	AppVersion string `json:AppVersion`
+	AppVersion string `json:appVersion`
 }
 
 func NewAPIChecker(APIUrl, MinVersion string) (*APIChecker, error) {
