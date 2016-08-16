@@ -55,8 +55,6 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		Metadata: h.metadata,
 	}
 
-	log.Printf("|| request made |||")
-
 	statusCode := http.StatusOK
 
 	errors := make([]Error, 0)
@@ -65,7 +63,7 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		errors = append(errors, Error{
 			Type:        "APIVersion",
-			Description: "API Version is out of date.",
+			Description: "API Version is out of whack.",
 			Error:       err.Error(),
 		})
 	}
@@ -80,8 +78,6 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
-
-	log.Printf("response: ", response)
 
 	data, err := json.MarshalIndent(&response, "", "  ")
 	if err != nil {

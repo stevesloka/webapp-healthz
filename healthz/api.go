@@ -3,6 +3,8 @@ package healthz
 import (
 	"encoding/json"
 	"errors"
+	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -11,8 +13,8 @@ type APIChecker struct {
 	MinVersion string
 }
 
-type Version struct {
-	AppVersion string `json:version`
+type Appversion struct {
+	Appver string `json:"version"`
 }
 
 func NewAPIChecker(APIUrl, MinVersion string) (*APIChecker, error) {
@@ -26,17 +28,22 @@ func (api *APIChecker) CheckVersion() error {
 		return err
 	}
 
-	decoder := json.NewDecoder(req.Body)
+	defer req.Body.Close()
 
-	data := Version{}
-	err = decoder.Decode(&data)
+	data := Appversion{}
+	jsonDataFromHttp, err := ioutil.ReadAll(req.Body)
+
+	json.Unmarshal([]byte(string(jsonDataFromHttp[:])), &data)
 
 	if err != nil {
 		return err
 	}
 
-	if data.AppVersion != api.MinVersion {
-		return errors.New("boo")
+	log.Println("ver1: ", data.Appver)
+	log.Println("minv: ", api.MinVersion)
+
+	if data.Appver != api.MinVersion {
+		return errors.New("versionMismatch")
 	}
 
 	return nil
