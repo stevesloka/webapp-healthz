@@ -41,6 +41,7 @@ func (api *APIChecker) CheckVersion() error {
 
 	log.Println("ver1: ", data.Appver)
 	log.Println("minv: ", api.MinVersion)
+	log.Println("-----------------------")
 
 	if data.Appver != api.MinVersion {
 		return errors.New("versionMismatch")

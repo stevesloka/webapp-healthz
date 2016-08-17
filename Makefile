@@ -19,7 +19,7 @@ push:
 	docker push $(PREFIX)/webapp-healthz:$(TAG)
 
 clean:
-	rm -f restapi
+	rm -f webapp-healthz
 
 test: clean
 	godep go test -v --vmodule=*=4
