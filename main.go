@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"steve.io/abstractions/webapp-healthz/healthz"
+	"github.com/stevesloka/webapp-healthz/healthz"
 )
 
 func main() {
@@ -14,6 +14,9 @@ func main() {
 	httpAddr := os.Getenv("HTTP_ADDR")
 	apiURL := os.Getenv("APIURL")
 	minVersion := os.Getenv("MINVERSION")
+
+	log.Println("MINVERSION: ", minVersion)
+	log.Println("APIURL: ", apiURL)
 
 	hostname, err := os.Hostname()
 	if err != nil {
